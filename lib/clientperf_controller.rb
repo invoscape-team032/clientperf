@@ -26,4 +26,15 @@ class ClientperfController < ActionController::Base
     end
     render :nothing => true
   end
+  
+  private
+  
+  def authenticate
+    config = ClientperfConfig.new
+    if config.has_auth?
+      authenticate_or_request_with_http_basic do |user_name, password|
+        user_name == config[:username] && password == config[:password]
+      end
+    end
+  end
 end

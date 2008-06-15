@@ -15,8 +15,14 @@ module Clientperf
             ActionController::Routing::Routes.routes.unshift(route)
           end
         end
+        
+        Dispatcher.to_prepare :clientperf_controller_filters do
+          ClientperfController.filter_chain.clear
+          ClientperfController.before_filter :authenticate, :except => :measure
+        end
+        
         ActionController::Base.append_view_path(File.dirname(__FILE__) << "/../views")
-        hook_into_response
+        ActionController::Base.send! :include, ExtendActionController
       end
     end
     
@@ -35,10 +41,6 @@ module Clientperf
       else
         true
       end
-    end
-    
-    def hook_into_response
-      ActionController::Base.send! :include, ExtendActionController
     end
   end
 end

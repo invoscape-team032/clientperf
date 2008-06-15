@@ -1,7 +1,7 @@
 class ClientperfMigrations
   MIGRATION_NAMES = %w(add_clientperf_tables)
   MIGRATION_CONTENTS = {
-          :add_clientperf_tables => <<-eof
+    :add_clientperf_tables => %(
 class AddClientperfTables < ActiveRecord::Migration
   def self.up
     create_table :clientperf_uris do |t|
@@ -20,8 +20,7 @@ class AddClientperfTables < ActiveRecord::Migration
     drop_table :clientperf_uris
     drop_table :clientperf_results
   end
-end      
-eof
+end)
   }
   
   attr_accessor :rails_dir
