@@ -1,0 +1,18 @@
+<table>
+	<tr>
+		<td>URI</td>
+		<td># of times measured</td>
+		<td>avg. client time (ms)</td>
+		<td>first measured</td>
+		<td>last measured</td>
+	</tr>
+	<% @uris.each do |uri| %>
+	<tr>
+		<td><%= link_to uri.uri, "/clientperf/#{uri.id}" %></td>
+		<td><%= uri.clientperf_results.size %></td>
+		<td><%= uri.result_average %></td>
+		<td><%= uri.created_at %></td>
+		<td><%= uri.updated_at %></td>
+	</tr>
+	<% end %>
+</table>

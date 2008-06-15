@@ -1,0 +1,15 @@
+bin/clientperf
+History.rdoc
+init.rb
+lib/clientperf.rb
+lib/clientperf_controller.rb
+lib/clientperf_result.rb
+lib/clientperf_uri.rb
+lib/extend_action_controller.rb
+Manifest
+rails/init.rb
+Rakefile
+README.rdoc
+views/clientperf/index.html.erb
+views/clientperf/show.html.erb
+views/layouts/clientperf.html.erb

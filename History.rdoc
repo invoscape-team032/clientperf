@@ -1,0 +1,3 @@
+= History
+
+* v0.0.1. Just in time for Austin on Rails
