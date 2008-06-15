@@ -9,7 +9,11 @@ class ClientperfController < ActionController::Base
   
   def reset
     if request.post?
-      ClientperfUri.destroy_all
+      if params[:id]
+        ClientperfUri.destroy(params[:id])
+      else
+        ClientperfUri.destroy_all
+      end
     end
     redirect_to :action => 'index'
   end

@@ -1,3 +1,4 @@
+<%= button_to "Reset all data", {:action => 'reset'},  :confirm => "are you sure?" %>
 <table>
 	<tr>
 		<td>URI</td>
@@ -11,8 +12,8 @@
 		<td><%= link_to uri.uri, "/clientperf/#{uri.id}" %></td>
 		<td><%= uri.clientperf_results.size %></td>
 		<td><%= uri.result_average %></td>
-		<td><%= uri.created_at %></td>
-		<td><%= uri.updated_at %></td>
+		<td><%= uri.created_at.strftime("%M/%d/%y") %></td>
+		<td><%= uri.updated_at.strftime("%M/%d/%y") %></td>
 	</tr>
 	<% end %>
 </table>

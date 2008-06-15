@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require 'fileutils'
 require File.dirname(__FILE__) << "/../lib/clientperf"
+require File.dirname(__FILE__) << "/../lib/clientperf_config"
+require File.dirname(__FILE__) << "/../lib/clientperf_migraions"
 
 # For older Rails versions
 # USAGE: clientperf [RAILS_ROOT]
@@ -23,32 +25,7 @@ File.readlines(File.dirname(__FILE__) << "/../Manifest").each do |line|
   end
 end
 
-generate = File.join(rails_dir, 'script/generate')
-`#{generate} migration add_clientperf_tables`
-migration = Dir[File.join(rails_dir, 'db/migrate/*_add_clientperf_tables.rb')].first
-
-File.open(migration, 'w') do |file|
-  file << <<-EOF
-class AddClientperfTables < ActiveRecord::Migration
-  def self.up
-    create_table :clientperf_uris do |t|
-      t.string :uri
-      t.timestamps 
-    end
-    
-    create_table :clientperf_results do |t|
-      t.integer :clientperf_uri_id
-      t.integer :milliseconds
-      t.timestamps 
-    end
-  end
-
-  def self.down
-    drop_table :clientperf_uris
-    drop_table :clientperf_results
-  end
-end
-EOF
-end
+ClientperfMigrations.install(rails_dir)
+ClientperfConfig.create_unless_exists
 
 STDERR.puts "Installed clientperf (v#{Clientperf.version}) in vendor/plugins/clientperf"
