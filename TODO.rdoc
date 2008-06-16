@@ -1,5 +1,5 @@
 = TODO
 * charts
 * make it pretty
-* create rubyforge accnt
 * tests (how to test a plugin?)
+* indexes? other small optimizations?
