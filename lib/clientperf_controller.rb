@@ -31,6 +31,7 @@ class ClientperfController < ActionController::Base
   
   def authenticate
     config = ClientperfConfig.new
+    logger.info "yo"
     if config.has_auth?
       authenticate_or_request_with_http_basic do |user_name, password|
         user_name == config[:username] && password == config[:password]
