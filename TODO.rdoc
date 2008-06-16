@@ -1,7 +1,5 @@
 = TODO
-* HTTP basic auth support
 * charts
 * make it pretty
 * create rubyforge accnt
-* upload to github
 * tests (how to test a plugin?)

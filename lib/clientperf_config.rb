@@ -20,10 +20,6 @@ class ClientperfConfig
     end
   end
   
-  def save!
-    File.open(self.class.config_file, 'w') { |f| f.puts data.to_yaml }
-  end
-  
   def data
     @data ||= begin
       YAML.load(File.read(self.class.config_file)) rescue self.class.defaults
@@ -32,6 +28,6 @@ class ClientperfConfig
     
   
   def has_auth?
-    data[:username] && data[:password]
+    data['username'] && data['password']
   end  
 end
