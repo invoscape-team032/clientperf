@@ -30,8 +30,9 @@ class ClientperfController < ActionController::Base
   private
   
   def authenticate
+    return true if action_name == 'measure'
+    
     config = ClientperfConfig.new
-    logger.info config.data.inspect
     if config.has_auth?
       authenticate_or_request_with_http_basic do |user_name, password|
         user_name == config['username'] && password == config['password']

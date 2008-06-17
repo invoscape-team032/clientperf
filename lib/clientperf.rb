@@ -18,7 +18,7 @@ module Clientperf
         
         Dispatcher.to_prepare :clientperf_controller_filters do
           ClientperfController.filter_chain.clear
-          ClientperfController.before_filter :authenticate, :except => :measure
+          ClientperfController.before_filter :authenticate
         end
         
         ActionController::Base.append_view_path(File.dirname(__FILE__) << "/../views")
