@@ -10,5 +10,6 @@ Echoe.new 'clientperf' do |p|
   p.project = 'clientperf'
   p.summary = "Instrumentation for the FiveRuns TuneUp product."
   p.url = "http://github.com/efalcao/clientperf"
+  p.dependencies = %w(activesupport)
   p.include_rakefile = true
 end

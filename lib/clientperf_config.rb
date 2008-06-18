@@ -1,4 +1,5 @@
 require 'yaml'
+require 'activesupport'
 
 class ClientperfConfig
   
@@ -13,10 +14,11 @@ class ClientperfConfig
       File.join(RAILS_ROOT, 'config', 'clientperf.yml')
     end
     
-    def create_unless_exists
-      return if File.exists?(config_file)
+    def create_unless_exists(rails_dir)
+      file = File.join(rails_dir, 'config', 'clientperf.yml')
+      return if File.exists?(file)
       
-      File.open(config_file, 'w') { |f| f.puts defaults.to_yaml }
+      File.open(file, 'w') { |f| f.puts defaults.to_yaml }
     end
   end
   

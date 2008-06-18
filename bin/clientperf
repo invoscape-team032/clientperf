@@ -2,7 +2,7 @@
 require 'fileutils'
 require File.dirname(__FILE__) << "/../lib/clientperf"
 require File.dirname(__FILE__) << "/../lib/clientperf_config"
-require File.dirname(__FILE__) << "/../lib/clientperf_migraions"
+require File.dirname(__FILE__) << "/../lib/clientperf_migrations"
 
 # For older Rails versions
 # USAGE: clientperf [RAILS_ROOT]
@@ -25,7 +25,7 @@ File.readlines(File.dirname(__FILE__) << "/../Manifest").each do |line|
   end
 end
 
-ClientperfMigrations.install(rails_dir)
-ClientperfConfig.create_unless_exists
+ClientperfMigrations.new(rails_dir).install_new
+ClientperfConfig.create_unless_exists(rails_dir)
 
 STDERR.puts "Installed clientperf (v#{Clientperf.version}) in vendor/plugins/clientperf"
