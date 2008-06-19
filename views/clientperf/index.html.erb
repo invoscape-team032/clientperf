@@ -1,7 +1,7 @@
-<%= button_to "Reset all data", {:action => 'reset'},  :confirm => "are you sure?" %>
+<h2>all urls</h2>
 <table>
 	<tr>
-		<td>URI</td>
+		<td>URL</td>
 		<td># of times measured</td>
 		<td>avg. client time (ms)</td>
 		<td>first measured</td>
@@ -10,10 +10,11 @@
 	<% @uris.each do |uri| %>
 	<tr>
 		<td><%= link_to uri.uri, "/clientperf/#{uri.id}" %></td>
-		<td><%= uri.clientperf_results.size %></td>
-		<td><%= uri.result_average %></td>
+		<td><%= uri.clientperf_results.count %></td>
+		<td><%= uri.clientperf_results.average(:milliseconds).to_i %></td>
 		<td><%= uri.created_at.strftime("%M/%d/%y") %></td>
 		<td><%= uri.updated_at.strftime("%M/%d/%y") %></td>
 	</tr>
 	<% end %>
 </table>
+<p><%= button_to "Reset all data", {:action => 'reset'},  :confirm => "are you sure?" %></p>

@@ -5,6 +5,7 @@ class ClientperfController < ActionController::Base
   
   def show
     @uri = ClientperfUri.find(params[:id], :include => :clientperf_results)
+    @page_title = @uri.uri
   end
   
   def reset

@@ -1,5 +1,18 @@
-<%= button_to "Reset this URI", {:action => 'reset', :id => @uri.id},  :confirm => "are you sure?" %>
-<h1><%= @uri.uri %></h1>
-<h3>times measured: <%= @uri.clientperf_results.size %></h3>
-<h3>average time: <%= @uri.result_average %>ms</h3>
-<img src="<%= @uri.chart_url %>" />
+<h2>summary</h2>
+<p>recorded <%= @uri.clientperf_results.count %> times with average time of <%= @uri.clientperf_results.average(:milliseconds).to_i %>ms. last recorded <%= @uri.updated_at.strftime("%Y-%m-%d") %>.</p>
+
+<h2>trends</h2>
+<div class="chart">
+	<h4>last hour</h4>
+	<img src="<%= @uri.hour_chart %>" />
+</div>
+<div class="chart">
+	<h4>last day</h4>
+	<img src="<%= @uri.day_chart %>" />
+</div>
+<div class="chart">
+	<h4>last month</h4>
+	<img src="<%= @uri.month_chart %>" />
+</div>
+
+<p><%= button_to "Reset this URI", {:action => 'reset', :id => @uri.id},  :confirm => "are you sure?" %></p>

@@ -1,5 +1,6 @@
 require 'yaml'
-require 'activesupport'
+require 'rubygems'
+require 'active_support'
 
 class ClientperfConfig
   
