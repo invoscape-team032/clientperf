@@ -1,7 +1,3 @@
-require 'yaml'
-require 'rubygems'
-require 'active_support'
-
 class ClientperfConfig
   
   delegate :[], :[]=, :each, :update, :to => :data

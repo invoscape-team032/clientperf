@@ -23,33 +23,28 @@ class AddClientperfTables < ActiveRecord::Migration
 end)
   }
   
-  attr_accessor :rails_dir
-      
-  def initialize(rails_dir)
-    @rails_dir = rails_dir
-  end
-  
-  def install_new
-    MIGRATION_NAMES.reject {|name| exists?(name) }.each do |migration|
-      generate(migration)
-      install(migration)
+  class << self
+    def install_new
+      to_migrate = MIGRATION_NAMES.reject {|name| exists?(name) }
+      to_migrate.each do |migration|
+        generate(migration)
+        install(migration)
+      end
     end
-  end
-  
-  private
-  
-  def generate(migration_name)
-    `#{File.join(rails_dir, 'script', 'generate')} migration #{migration_name}`
-  end
-  
-  def migration_path(migration_name)
-    Dir[File.join(rails_dir, 'db', 'migrate', "*_#{migration_name}.rb")].first
-  end
-  alias_method :exists?, :migration_path
-  
-  def install(migration)
-    File.open(migration_path(migration), 'w') do |file|
-      file << MIGRATION_CONTENTS[migration.to_sym]
+
+    def generate(migration_name)
+      Rails::Generator::Scripts::Generate.new.run(['migration', migration_name])
+    end
+
+    def migration_path(migration_name)
+      Dir[File.join(RAILS_ROOT, 'db', 'migrate', "*_#{migration_name}.rb")].first
+    end
+    alias_method :exists?, :migration_path
+
+    def install(migration)
+      File.open(migration_path(migration), 'w') do |file|
+        file << MIGRATION_CONTENTS[migration.to_sym]
+      end
     end
   end
 end

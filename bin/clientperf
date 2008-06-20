@@ -1,12 +1,20 @@
 #!/usr/bin/env ruby
+
+# USAGE: clientperf [RAILS_ROOT]
+rails_dir = ARGV[0] || Dir.pwd
+
 require 'fileutils'
+
+require rails_dir + '/config/boot'
+require "#{RAILS_ROOT}/config/environment"
+require 'rails_generator'
+require 'rails_generator/scripts/generate'
+
 require File.dirname(__FILE__) << "/../lib/clientperf"
 require File.dirname(__FILE__) << "/../lib/clientperf_config"
 require File.dirname(__FILE__) << "/../lib/clientperf_migrations"
 
-# For older Rails versions
-# USAGE: clientperf [RAILS_ROOT]
-rails_dir = ARGV[0] || Dir.pwd
+
 plugin_dir = File.join(rails_dir, 'vendor/plugins')
 unless File.directory?(plugin_dir)
   abort "clientperf: #{plugin_dir} does not exist; cannot install plugin"
@@ -25,7 +33,7 @@ File.readlines(File.dirname(__FILE__) << "/../Manifest").each do |line|
   end
 end
 
-ClientperfMigrations.new(rails_dir).install_new
+ClientperfMigrations.install_new
 ClientperfConfig.create_unless_exists(rails_dir)
 
 STDERR.puts "Installed clientperf (v#{Clientperf.version}) in vendor/plugins/clientperf"
