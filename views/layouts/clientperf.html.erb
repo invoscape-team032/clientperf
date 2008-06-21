@@ -2,7 +2,21 @@
 	<head>
 		<title>clientperf <%= ": #{@page_title}" if @page_title %></title>
 		<style type="text/css">
-			body {margin:0; font-family: helvetica, arial, sans-serif; font-size: 14px;}
+			body {
+				margin:0; 
+				font-family: helvetica, arial, sans-serif; 
+				font-size: 14px;
+				min-width: 990px;
+			}
+			
+			ul {
+				margin: 0;
+				padding: 0;
+			}
+			
+			li {
+				list-style-type: none;
+			}
 			
 			#header {
 				background-color: #dedede;
@@ -29,14 +43,53 @@
 			#header h3 span {
 			}
 			
-			#content {
-				padding: 0 20px;
-			}
-			
 			#content h2 {
-				margin-top: 20px;
+				margin: 0 0 20px 0;
 				border-bottom: 1px solid #d3d3d3;
 			}
+			
+			#urls, #overall, #trends, #summary {
+				float: left;
+			}
+			
+			#urls, #trends {
+				width: 60%;
+			}
+			
+			#urls li {
+				margin-bottom: 3px	;
+			}
+			
+			.vital-stats, #explanation {
+				color: #666;
+				padding-right: 5px;
+				font-weight: normal;
+			}
+			
+			#explanation {
+				margin-left: 10px;
+				font-style: italic;
+				font-size: 12px;
+				position: relative;
+				bottom: 2px;
+			}
+			
+			table {
+				font-size: 14px;
+			}
+			
+			td { padding-bottom: 3px;}
+			
+			#overall, #summary{
+				width: 40%;
+			}
+			
+			.block {
+				padding: 20px;
+			}
+			
+			#summary li {margin-bottom: 6px;}
+			#summary li span { float:left; width: 100px; }
 		</style>
 	</head>
 	<body>

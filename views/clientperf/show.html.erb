@@ -1,18 +1,24 @@
-<h2>summary</h2>
-<p>recorded <%= @uri.clientperf_results.count %> times with average time of <%= @uri.clientperf_results.average(:milliseconds).to_i %>ms. last recorded <%= @uri.updated_at.strftime("%Y-%m-%d") %>.</p>
-
-<h2>trends</h2>
-<div class="chart">
-	<h4>last hour</h4>
-	<img src="<%= @uri.hour_chart %>" />
+<div id="trends">
+	<div class="block">
+		<h2>trends</h2>
+		<div class="chart">
+			<h4>24 hour</h4>
+			<img src="<%= chart(@uri.last_24_hours) %>" />
+		</div>
+		<div class="chart">
+			<h4>30 day</h4>
+			<img src="<%= chart(@uri.last_30_days)%>" />
+		</div>	
+	</div>
 </div>
-<div class="chart">
-	<h4>last day</h4>
-	<img src="<%= @uri.day_chart %>" />
+<div id="summary">
+	<div class="block">
+		<h2>summary</h2>
+		<ul>
+			<li><span>measured:</span><b><%= @uri.clientperf_results.count %></b> times</li>
+			<li><span>average time:</span><b><%= number_with_precision(@uri.clientperf_results.average(:milliseconds) / 1000.to_f, 2) %></b> seconds</li>
+			<li><span>first seen:</span><b><%= @uri.created_at.strftime("%m/%d/%Y") %></b></li>
+			<li><span>last seen:</span><b><%= distance_of_time_in_words(@uri.updated_at, Time.now) %></b> ago</li>
+		</ul>		
+	</div>
 </div>
-<div class="chart">
-	<h4>last month</h4>
-	<img src="<%= @uri.month_chart %>" />
-</div>
-
-<p><%= button_to "Reset this URI", {:action => 'reset', :id => @uri.id},  :confirm => "are you sure?" %></p>

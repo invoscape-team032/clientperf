@@ -1,22 +1,12 @@
 class ClientperfController < ActionController::Base
   def index
+    ClientperfUri.destroy_all ["updated_at < ?", 1.year.ago]
     @uris = ClientperfUri.find(:all, :include => :clientperf_results)
   end
   
   def show
     @uri = ClientperfUri.find(params[:id], :include => :clientperf_results)
     @page_title = @uri.uri
-  end
-  
-  def reset
-    if request.post?
-      if params[:id]
-        ClientperfUri.destroy(params[:id])
-      else
-        ClientperfUri.destroy_all
-      end
-    end
-    redirect_to :action => 'index'
   end
   
   def measure

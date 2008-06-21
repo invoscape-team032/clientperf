@@ -12,48 +12,28 @@ module ExtendActionController
   end
   
   def add_clientperf_to(response)
-    if response.body =~ /<html[^>]*?>/im
-      replacement = %q(\1
+    if response.body =~ /(<html[^>]*?>).*(<\/html>)/im
+      top = %q(\1
         <script type='text/javascript'>
-          var clientPerfStart = (new Date()).getTime();
-          var clientPerf = function() {
-            var attach = function(instance, eventName, listener) {
-            	var listenerFn = listener;
-            	if (instance.addEventListener) {
-            		instance.addEventListener(eventName, listenerFn, false);
-            	}
-            	else if (instance.attachEvent) { // Internet explorer
-            		listenerFn = function() {
-            	    	listener(window.event);
-            		};
-            		instance.attachEvent("on" + eventName, listenerFn);
-            	}
-            	else {
-            	    // I could do some further attachment here, if I wanted too. for older browsers
-            	    // ex: instance['on' + eventName] = listener;
-            		throw new Error("Event registration not supported");
-            	}
-            };
-            
-            var endRun = function() {
-              var clientPerfEnd = (new Date()).getTime();
-              var img = document.createElement('img');
-              img.src = '/clientperf/measure.gif?b=' + clientPerfStart + '&e=' + clientPerfEnd + '&u=' + location.href;
-              document.body.appendChild(img);
-            };
-            
-            try {
-                attach(window, 'load', endRun);
-            }
-            catch(e) {
-                window.onload = endRun;
-            }
-          }
-          clientPerf();
+          var _clientPerfStart = (new Date()).getTime();
         </script>
       )
       
-      response.body.sub!(/(<html[^>]*?>)/im, replacement)
+      bottom = %q(
+        <script type='text/javascript'>
+        (function() {
+        	function fn() { var end = (new Date()).getTime(), img = document.createElement('img'); img.src = '/clientperf/measure.gif?b='+_clientPerfStart+'&e='+end+'&u='+encodeURIComponent(location.href); document.body.appendChild(img); };
+        	if (window.addEventListener) { window.addEventListener('load', fn, false); }
+        	else if (window.attachEvent) { window.attachEvent('onload', fn); }
+        	else { var chain = window.onload; window.onload = function(e) { if(chain !== undefined) { chain(e); } fn(); } }
+        })();
+        </script>
+        </html>
+      )
+      
+      response.body.sub!(/(<html[^>]*?>)/im, top)
+      response.body.sub!(/<\/html>/im, bottom)
+      
       response.headers["Content-Length"] = response.body.size
     end
   end

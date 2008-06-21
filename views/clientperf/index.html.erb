@@ -1,20 +1,26 @@
-<h2>all urls</h2>
-<table>
-	<tr>
-		<td>URL</td>
-		<td># of times measured</td>
-		<td>avg. client time (ms)</td>
-		<td>first measured</td>
-		<td>last measured</td>
-	</tr>
-	<% @uris.each do |uri| %>
-	<tr>
-		<td><%= link_to uri.uri, "/clientperf/#{uri.id}" %></td>
-		<td><%= uri.clientperf_results.count %></td>
-		<td><%= uri.clientperf_results.average(:milliseconds).to_i %></td>
-		<td><%= uri.created_at.strftime("%M/%d/%y") %></td>
-		<td><%= uri.updated_at.strftime("%M/%d/%y") %></td>
-	</tr>
-	<% end %>
-</table>
-<p><%= button_to "Reset all data", {:action => 'reset'},  :confirm => "are you sure?" %></p>
+<div id="urls">
+	<div class="block">
+		<h2>all urls<span id="explanation">[ avg. seconds | # of times seen ]</span></h2>
+		<table>
+			<% @uris.each do |uri| %>
+			<tr>
+				<td class="vital-stats">[ <%= number_with_precision(uri.clientperf_results.average(:milliseconds) / 1000.to_f, 2) %>s | <%= uri.clientperf_results.count %> ]</td>
+				<td><%= link_to uri.uri, "/clientperf/#{uri.id}" %></td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
+<div id="overall">
+	<div class="block">
+		<h2>overall graphs</h2>
+		<div class="chart">
+			<h4>24 hour</h4>
+			<img src="<%= chart(ClientperfResult.last_24_hours) %>" />
+		</div>
+		<div class="chart">
+			<h4>30 day</h4>
+			<img src="<%= chart(ClientperfResult.last_30_days)%>" />
+		</div>
+	</div>
+</div>

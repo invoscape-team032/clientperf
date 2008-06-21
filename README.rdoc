@@ -6,9 +6,17 @@ Measures the time it takes a user's browser to get from the top of a web page to
 
 == Installation
 
+Most cases:
+
 	sudo gem install clientperf
 	clientperf /path/to/rails/app
+	cd /path/to/rails/app
 	rake db:migrate
+	
+For clientperf developers, follow the above steps to generate the clientperf tables for a rails app, then:
+	cd /path/to/rails/app
+	rm -rf vendor/plugins/clientperf
+	git clone git://github.com/efalcao/clientperf.git vendor/plugins/clientperf
 
 == Usage
 

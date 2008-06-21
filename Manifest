@@ -5,6 +5,8 @@ init.rb
 lib/clientperf.rb
 lib/clientperf_config.rb
 lib/clientperf_controller.rb
+lib/clientperf_data_builder.rb
+lib/clientperf_helper.rb
 lib/clientperf_migrations.rb
 lib/clientperf_result.rb
 lib/clientperf_uri.rb
