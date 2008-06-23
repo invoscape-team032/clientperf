@@ -1,4 +1,5 @@
 = History
+* v0.1.2. Use ActiveRecord::Base.default_timezone when trying to format dateparts, thanks Mike Perham
 * v0.1.1. Fixed error when there is no data at all, thanks Mike Perham
 * v0.1.0. This version is decent for consumption. decent graphs, layout, stable installation and compressed javascript.
 * v0.0.2. First time releasing a gem and my manifest was bad. this version fixes that

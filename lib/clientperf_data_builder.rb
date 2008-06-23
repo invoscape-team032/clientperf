@@ -13,7 +13,7 @@ module ClientperfDataBuilder
   private
   
   def get_data_or_pad(point, results)
-    data = results.detect {|p,d| point == p.to_time(:local)}
+    data = results.detect {|p,d| point == p.to_time(ActiveRecord::Base.default_timezone)}
     data ? data[1].to_i : 0
   end
 end
