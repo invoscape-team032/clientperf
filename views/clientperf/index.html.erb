@@ -14,6 +14,7 @@
 <div id="overall">
 	<div class="block">
 		<h2>overall graphs</h2>
+		<% if @uris.size > 0 %>
 		<div class="chart">
 			<h4>24 hour</h4>
 			<img src="<%= chart(ClientperfResult.last_24_hours) %>" />
@@ -22,5 +23,8 @@
 			<h4>30 day</h4>
 			<img src="<%= chart(ClientperfResult.last_30_days)%>" />
 		</div>
+		<% else %>
+			<p>no data yet.</p>
+		<% end %>
 	</div>
 </div>
