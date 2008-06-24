@@ -22,7 +22,7 @@ module ExtendActionController
       bottom = %q(
         <script type='text/javascript'>
         (function() {
-        	function fn() { var end = (new Date()).getTime(), img = document.createElement('img'); img.src = '/clientperf/measure.gif?b='+_clientPerfStart+'&e='+end+'&u='+encodeURIComponent(location.href); document.body.appendChild(img); };
+        	function fn() { var end = (new Date()).getTime(), img = document.createElement('img'); img.height ='1'; img.width = '1'; img.src = '/clientperf/measure.gif?b='+_clientPerfStart+'&e='+end+'&u='+encodeURIComponent(location.href); document.body.appendChild(img); };
         	if (window.addEventListener) { window.addEventListener('load', fn, false); }
         	else if (window.attachEvent) { window.attachEvent('onload', fn); }
         	else { var chain = window.onload; window.onload = function(e) { if(chain !== undefined) { chain(e); } fn(); } }
