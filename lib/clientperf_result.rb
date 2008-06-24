@@ -6,7 +6,7 @@ class ClientperfResult < ActiveRecord::Base
     include ClientperfDataBuilder
 
     def last_24_hours
-      start_time = (Time.now + 1.hour - 1.day).change(:min => 0)
+      start_time = day_start_time
       results = average(:milliseconds, :conditions => ['created_at > ?', start_time], 
         :group => "date_format(created_at,'%Y-%m-%d %H')")
 
@@ -14,7 +14,7 @@ class ClientperfResult < ActiveRecord::Base
     end
 
     def last_30_days
-      start_time = (Time.now + 1.day - 30.days).change(:hour => 0)
+      start_time = month_start_time
       results = average(:milliseconds, :conditions => ['created_at > ?', start_time], 
         :group => "date_format(created_at,'%Y-%m-%d')")
 
