@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>clientperf <%= ": #{@page_title}" if @page_title %></title>
+		<title>clientperf <%= ": #{h(@page_title)}" if @page_title %></title>
 		<style type="text/css">
 			body {
 				margin:0; 
@@ -95,7 +95,7 @@
 	<body>
 		<div id="header">
 			<h1><%= link_to "clientperf", :controller => 'clientperf', :action => 'index' %></h1>
-			<%= "<h3><span>&raquo;</span>#{@uri.uri}</h3>" if @uri %>
+			<%= "<h3><span>&raquo;</span>#{h(@uri.uri)}</h3>" if @uri %>
 			<div style="clear:both"></div>
 		</div>
 		<div id="content">

@@ -27,7 +27,7 @@ module Clientperf
     end
     
     def version
-      "0.1.5"
+      "0.1.6"
     end
     
     private

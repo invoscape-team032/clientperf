@@ -3,11 +3,11 @@
 		<h2>trends</h2>
 		<div class="chart">
 			<h4>24 hour</h4>
-			<img src="<%= chart(@uri.last_24_hours) %>" />
+			<%= chart_for(@uri.last_24_hours) %>
 		</div>
 		<div class="chart">
 			<h4>30 day</h4>
-			<img src="<%= chart(@uri.last_30_days)%>" />
+			<%= chart_for(@uri.last_30_days)%>
 		</div>	
 	</div>
 </div>

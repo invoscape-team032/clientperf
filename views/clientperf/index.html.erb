@@ -5,7 +5,7 @@
 			<% @uris.each do |uri| %>
 			<tr>
 				<td class="vital-stats">[ <%= number_with_precision(uri.clientperf_results.average(:milliseconds) / 1000.to_f, 2) %>s | <%= uri.clientperf_results.count %> ]</td>
-				<td><%= link_to uri.uri, "/clientperf/#{uri.id}" %></td>
+				<td><%= link_to h(uri.uri), "/clientperf/#{uri.id}" %></td>
 			</tr>
 			<% end %>
 		</table>
@@ -17,11 +17,11 @@
 		<% if @uris.size > 0 %>
 		<div class="chart">
 			<h4>24 hour</h4>
-			<img src="<%= chart(ClientperfResult.last_24_hours) %>" />
+			<%= chart_for(ClientperfResult.last_24_hours) %>
 		</div>
 		<div class="chart">
 			<h4>30 day</h4>
-			<img src="<%= chart(ClientperfResult.last_30_days)%>" />
+			<%= chart_for(ClientperfResult.last_30_days) %>
 		</div>
 		<% else %>
 			<p>no data yet.</p>
